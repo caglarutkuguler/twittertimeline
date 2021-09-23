@@ -4,10 +4,10 @@
  *
  *    Module URI: Please contact with info@megventure.com
  *    Description: Use this module to display your twitter timeline sliding on your online store
- *    Version: 3.0.0
+ *    Version: 3.1.0
  *
  *  @author    MEG Venture <info@megventure.com>
- *  @copyright 2007-2019 MEG Venture
+ *  @copyright 2007-2021 MEG Venture
  *  @license   For Prestashop--> http://opensource.org/licenses/osl-3.2.php  Open Software License (OSL 3.2)
  *
  *    This program is not a free software: you can't redistribute it and/or modify
@@ -62,7 +62,7 @@ class TwitterOAuth
     /* Contains the last HTTP headers returned. */
     public $http_info;
     /* Set the useragnet. */
-    public $useragent = 'TwitterOAuth v0.3.0.0-beta2';
+    public $useragent = 'TwitterOAuth v0.3.1.0-beta2';
     /* Immediately retry the API call if the response was not successful. */
     //public $retry = TRUE;
 

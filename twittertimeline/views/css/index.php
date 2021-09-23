@@ -1,10 +1,16 @@
 <?php
-/*
-* 2007-2021 PrestaShop
+/**
+* 2007-2013 PrestaShop
 *
 * NOTICE OF LICENSE
 *
-* This module is not a free module and all rights are reserved. It is prohibited to sell or redistribute this module for any purpose. Each license can be used only in one website. For multishop environment, a new license is required for each e-shop managed.
+* This source file is subject to the Academic Free License (AFL 3.0)
+* that is bundled with this package in the file LICENSE.txt.
+* It is also available through the world-wide-web at this URL:
+* http://opensource.org/licenses/afl-3.0.php
+* If you did not receive a copy of the license and are unable to
+* obtain it through the world-wide-web, please send an email
+* to license@prestashop.com so we can send you a copy immediately.
 *
 * DISCLAIMER
 *
@@ -12,9 +18,9 @@
 * versions in the future. If you wish to customize PrestaShop for your
 * needs please refer to http://www.prestashop.com for more information.
 *
-*  @author MEG Venture <info@megventure.com>
-*  @copyright  2007-2021 PrestaShop SA
-*  @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+*  @author    PrestaShop SA <contact@prestashop.com>
+*  @copyright 2007-2013 PrestaShop SA
+*  @license   http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
 *  International Registered Trademark & Property of PrestaShop SA
 */
 				    	

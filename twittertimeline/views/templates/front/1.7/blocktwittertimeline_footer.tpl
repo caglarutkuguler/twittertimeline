@@ -2,7 +2,7 @@
 *	Module Name: Twitter Timeline Slider
 *	Module URI: Please contact with info@megventure.com
 *	Description: Use this module to display your twitter timeline sliding on your online store
-*	Version: 3.0.0
+*	Version: 3.1.0
 *	Author: MEG Venture
 *
 *	Copyright 2014, MEG Venture (info@megventure.com)
@@ -14,6 +14,7 @@
 *	This copyright notice  and licence should be retained in all modules based on this framework.
 *	This does not affect your rights to assert copyright over your own original work.
 *}
+
 {if Configuration::get('twittertimeline_position')=="footer"}
 <!--TWITTER TIMELINE BY megventure.com-->
 <!--See the module's main file for license and credits-->
@@ -222,7 +223,7 @@ $(document).ready(function () {
 	
 	$('#twitter-feed').html(headerHTML + loadingHTML);
 	 
-    $.getJSON('{$module_dir}get-tweets1.1.php', 
+    $.getJSON('{$module_dir}controllers/front/get-tweets1.1.php', 
         function(feeds) {   
 		   //alert(feeds);
             var feedHTML = '';

@@ -2,7 +2,7 @@
 *	Module Name: Twitter Timeline Slider
 *	Module URI: Please contact with info@megventure.com
 *	Description: Use this module to display your twitter timeline sliding on your online store
-*	Version: 3.0.0
+*	Version: 3.1.0
 *	Author: MEG Venture
 *
 *	Copyright 2014, MEG Venture (info@megventure.com)
@@ -223,7 +223,7 @@ $(document).ready(function () {
 	
 	$('#twitter-feed').html(headerHTML + loadingHTML);
 	 
-    $.getJSON('{$module_dir}get-tweets1.1.php', 
+    $.getJSON('{$module_dir}controllers/front/get-tweets1.1.php', 
         function(feeds) {   
             var feedHTML = '';
             var displayCounter = 1;

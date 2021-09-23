@@ -2,7 +2,7 @@
 *	Module Name: Twitter Timeline Slider
 *	Module URI: Please contact with info@megventure.com
 *	Description: Use this module to display your twitter timeline sliding on your online store
-*	Version: 3.0.0
+*	Version: 3.1.0
 *	Author: MEG Venture
 *
 *	Copyright 2014, MEG Venture (info@megventure.com)
@@ -146,6 +146,7 @@
 			<input type="radio" name="positionA" value="right" {if $position == "right"}checked{/if}/>&nbsp;{l s='Right' mod='twittertimeline'}&nbsp;&nbsp;
 			<input type="radio" name="positionA" value="footer" {if $position == "footer"}checked{/if}/>&nbsp;{l s='Footer' mod='twittertimeline'}&nbsp;&nbsp;
 			<input type="radio" name="positionA" value="home" {if $position == "home"}checked{/if}/>&nbsp;{l s='Homepage' mod='twittertimeline'}
+			<input type="radio" name="positionA" value="bottom_left" {if $position == "bottom_left"}checked{/if}/>&nbsp;{l s='Bottom-left button' mod='twittertimeline'}
 			<p class="clear">{l s='determine the position of the widget' mod='twittertimeline'}</p>
 		</div>
 		<label>{l s='Tweet text color' mod='twittertimeline'}</label>
