@@ -307,13 +307,13 @@ class TwitterTimeline extends Module
 
         if (!Db::getInstance()->Execute('
 		INSERT INTO `' . _DB_PREFIX_ . 'configuration`(`id_configuration`, `name`, `value`, `date_add`, `date_upd`)
-		VALUES("","twittertimeline_accesstoken", "855176100-dWfeg72peI57HM7o3HyRZ38wFP7kQwKvFT5CsRrO", "2012-03-29 00:08:22", "2012-04-02 12:42:16")')) {
+		VALUES("","twittertimeline_accesstoken", "855176100-G9alhRzFk6Afuqeluun1nwsTvS9tUOGYhOn2c3OX", "2012-03-29 00:08:22", "2012-04-02 12:42:16")')) {
             return false;
         }
 
         if (!Db::getInstance()->Execute('
 		INSERT INTO `' . _DB_PREFIX_ . 'configuration`(`id_configuration`, `name`, `value`, `date_add`, `date_upd`)
-		VALUES("","twittertimeline_accesstokensecre", "o5Hsnj6uHKGnkZCNhsWcEUZEzHOGQ5Xq5GHwodSjDnGjX", "2012-03-29 00:08:22", "2012-04-02 12:42:16")')) {
+		VALUES("","twittertimeline_accesstokensecre", "FSqM7rxU86mhSg7BZf0vzzLkYuwNQaqz9Bu0u0T4CPqgv", "2012-03-29 00:08:22", "2012-04-02 12:42:16")')) {
             return false;
         }
 

@@ -20,9 +20,9 @@
  *    JQuery Twitter Feed. Coded by Tom Elliott @ www.webdevdoor.com (2013) based on https://twitter.com/javascripts/blogger.js
  */
 
-require_once "twitteroauth/twitteroauth/twitteroauth.php"; //Path to twitteroauth library
-require_once dirname(__FILE__) . '/../../config/config.inc.php';
-require_once 'twittertimeline.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/modules/twittertimeline/twitteroauth/twitteroauth/twitteroauth.php'; //Path to twitteroauth library
+require_once $_SERVER['DOCUMENT_ROOT'] . '/config/config.inc.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/modules/twittertimeline/twittertimeline.php';
 $module = new TwitterTimeline();
 
 $twitteruser = $module->username;
