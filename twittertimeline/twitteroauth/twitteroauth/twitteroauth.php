@@ -4,10 +4,10 @@
  *
  *    Module URI: Please contact with info@megventure.com
  *    Description: Use this module to display your twitter timeline sliding on your online store
- *    Version: 3.1.0
+ *    Version: 3.2.0
  *
  *  @author    MEG Venture <info@megventure.com>
- *  @copyright 2007-2021 MEG Venture
+ *  @copyright 2007-2023 MEG Venture
  *  @license   For Prestashop--> http://opensource.org/licenses/osl-3.2.php  Open Software License (OSL 3.2)
  *
  *    This program is not a free software: you can't redistribute it and/or modify
@@ -23,9 +23,7 @@
  *
  * The first PHP Library to support OAuth for Twitter's REST API.
  */
-
 /* Load OAuth lib. You can find it at http://oauth.net */
-
 require_once 'OAuth.php';
 require_once 'OAuthConsumer.php';
 require_once 'OAuthToken.php';
@@ -37,7 +35,6 @@ require_once 'OAuthRequest.php';
 require_once 'OAuthServer.php';
 require_once 'OAuthDataStore.php';
 require_once 'OAuthUtil.php';
-
 /**
  * Twitter OAuth class
  */
@@ -62,10 +59,9 @@ class TwitterOAuth
     /* Contains the last HTTP headers returned. */
     public $http_info;
     /* Set the useragnet. */
-    public $useragent = 'TwitterOAuth v0.3.1.0-beta2';
+    public $useragent = 'TwitterOAuth v0.3.2.0-beta2';
     /* Immediately retry the API call if the response was not successful. */
     //public $retry = TRUE;
-
     /**
      * Set API URLS
      */
@@ -85,7 +81,6 @@ class TwitterOAuth
     {
         return 'https://api.twitter.com/oauth/request_token';
     }
-
     /**
      * Debug helpers
      */
@@ -97,7 +92,6 @@ class TwitterOAuth
     {
         return $this->last_api_call;
     }
-
     /**
      * construct TwitterOAuth object
      */
@@ -111,7 +105,6 @@ class TwitterOAuth
             $this->token = null;
         }
     }
-
     /**
      * Get a request_token from Twitter
      *
@@ -126,7 +119,6 @@ class TwitterOAuth
         $this->token = new OAuthConsumer($token['oauth_token'], $token['oauth_token_secret']);
         return $token;
     }
-
     /**
      * Get the authorize URL
      *
@@ -143,7 +135,6 @@ class TwitterOAuth
             return $this->authenticateURL() . "?oauth_token={$token}";
         }
     }
-
     /**
      * Exchange request token and secret for an access token and
      * secret, to sign API calls.
@@ -162,7 +153,6 @@ class TwitterOAuth
         $this->token = new OAuthConsumer($token['oauth_token'], $token['oauth_token_secret']);
         return $token;
     }
-
     /**
      * One time exchange of username and password for access token and secret.
      *
@@ -183,7 +173,6 @@ class TwitterOAuth
         $this->token = new OAuthConsumer($token['oauth_token'], $token['oauth_token_secret']);
         return $token;
     }
-
     /**
      * GET wrapper for oAuthRequest.
      */
@@ -191,11 +180,10 @@ class TwitterOAuth
     {
         $response = $this->oAuthRequest($url, 'GET', $parameters);
         if ($this->format === 'json' && $this->decode_json) {
-            return Tools::jsonDecode($response);
+            return $this->jsonDecode($response);
         }
         return $response;
     }
-
     /**
      * POST wrapper for oAuthRequest.
      */
@@ -203,11 +191,10 @@ class TwitterOAuth
     {
         $response = $this->oAuthRequest($url, 'POST', $parameters);
         if ($this->format === 'json' && $this->decode_json) {
-            return Tools::jsonDecode($response);
+            return $this->jsonDecode($response);
         }
         return $response;
     }
-
     /**
      * DELETE wrapper for oAuthReqeust.
      */
@@ -215,11 +202,10 @@ class TwitterOAuth
     {
         $response = $this->oAuthRequest($url, 'DELETE', $parameters);
         if ($this->format === 'json' && $this->decode_json) {
-            return Tools::jsonDecode($response);
+            return $this->jsonDecode($response);
         }
         return $response;
     }
-
     /**
      * Format and sign an OAuth / API request
      */
@@ -237,7 +223,6 @@ class TwitterOAuth
                 return $this->http($request->get_normalized_http_url(), $method, $request->to_postdata());
         }
     }
-
     /**
      * Make an HTTP request
      *
@@ -256,7 +241,6 @@ class TwitterOAuth
         curl_setopt($ci, CURLOPT_SSL_VERIFYPEER, $this->ssl_verifypeer);
         curl_setopt($ci, CURLOPT_HEADERFUNCTION, array($this, 'getHeader'));
         curl_setopt($ci, CURLOPT_HEADER, false);
-
         switch ($method) {
             case 'POST':
                 curl_setopt($ci, CURLOPT_POST, true);
@@ -270,7 +254,6 @@ class TwitterOAuth
                     $url = "{$url}?{$postfields}";
                 }
         }
-
         curl_setopt($ci, CURLOPT_URL, $url);
         $response = curl_exec($ci);
         $this->http_code = curl_getinfo($ci, CURLINFO_HTTP_CODE);
@@ -279,7 +262,6 @@ class TwitterOAuth
         curl_close($ci);
         return $response;
     }
-
     /**
      * Get the header info to store.
      */
@@ -292,5 +274,17 @@ class TwitterOAuth
             $this->http_header[$key] = $value;
         }
         return Tools::strlen($header);
+    }
+    /**
+     * @param string $data
+     * @param bool $assoc (since 1.4.2.4) if true, convert to associative array
+     * @param int $depth
+     * @param int $options
+     *
+     * @return array
+     */
+    public function jsonDecode($data, $assoc = false, $depth = 512, $options = 0)
+    {
+        return json_decode($data, $assoc, $depth, $options);
     }
 }

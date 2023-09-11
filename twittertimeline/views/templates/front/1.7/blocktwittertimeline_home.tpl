@@ -2,7 +2,7 @@
 *	Module Name: Twitter Timeline Slider
 *	Module URI: Please contact with info@megventure.com
 *	Description: Use this module to display your twitter timeline sliding on your online store
-*	Version: 3.1.0
+*	Version: 3.2.0
 *	Author: MEG Venture
 *
 *	Copyright 2014, MEG Venture (info@megventure.com)
@@ -395,11 +395,11 @@ $(document).ready(function () {
                 error = 'Requested page not found. [404]';
             } else if (jqXHR.status == 500) {
                 error = 'Internal Server Error [500].';
-            } else if (exception === 'parsererror') {
+            } else if (textStatus === 'parsererror') {
                 error = 'Requested JSON parse failed.';
-            } else if (exception === 'timeout') {
+            } else if (textStatus === 'timeout') {
                 error = 'Time out error.';
-            } else if (exception === 'abort') {
+            } else if (textStatus === 'abort') {
                 error = 'Ajax request aborted.';
             } else {
                 error = 'Uncaught Error.\n' + jqXHR.responseText;
