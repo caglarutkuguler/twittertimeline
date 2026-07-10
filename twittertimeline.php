@@ -13,6 +13,7 @@ class TwitterTimeline extends Module
 {
     const POSITIONS = ['left', 'right', 'footer', 'home', 'floating'];
     const DISPLAY_MODES = ['fixed', 'scroll'];
+    const EMBED_TYPES = ['timeline', 'tweet'];
     const CHROME_FLAGS = [
         'CHROME_NOHEADER' => 'noheader',
         'CHROME_NOFOOTER' => 'nofooter',
@@ -24,7 +25,7 @@ class TwitterTimeline extends Module
     {
         $this->name = 'twittertimeline';
         $this->tab = 'front_office_features';
-        $this->version = '4.0.5';
+        $this->version = '4.1.0';
         $this->author = 'MEG Venture';
         $this->module_key = '14fcb1e53505a501f39458b0aaa39229';
         $this->need_instance = 0;
@@ -34,11 +35,11 @@ class TwitterTimeline extends Module
         parent::__construct();
 
         $this->displayName = $this->l('Twitter and X Feed Widget');
-        $this->description = $this->l('Show your live Twitter/X timeline anywhere on your store. No API keys, no developer account, just your username.');
+        $this->description = $this->l('Show your live Twitter/X timeline, or a single featured tweet, anywhere on your store. No API keys, no developer account, just your username.');
         $this->confirmUninstall = $this->l('Are you sure you want to remove your Twitter/X feed settings?');
 
-        if (!Configuration::get('TWITTERTIMELINE_USERNAME')) {
-            $this->warning = $this->l('Enter your Twitter/X username on the configuration page to activate this module.');
+        if (!self::isValidUsername(Configuration::get('TWITTERTIMELINE_USERNAME')) && !self::isValidTweetId(Configuration::get('TWITTERTIMELINE_TWEET_ID'))) {
+            $this->warning = $this->l('Enter your Twitter/X username, or a tweet URL, on the configuration page to activate this module.');
         }
     }
 
@@ -70,6 +71,10 @@ class TwitterTimeline extends Module
         return [
             'TWITTERTIMELINE_USERNAME' => '',
             'TWITTERTIMELINE_POSITION' => 'footer',
+            'TWITTERTIMELINE_EMBED_TYPE' => 'timeline',
+            'TWITTERTIMELINE_TWEET_ID' => '',
+            'TWITTERTIMELINE_TWEET_HIDE_CONVERSATION' => 0,
+            'TWITTERTIMELINE_TWEET_HIDE_MEDIA' => 0,
             'TWITTERTIMELINE_DISPLAY_MODE' => 'fixed',
             'TWITTERTIMELINE_TWEET_LIMIT' => 5,
             'TWITTERTIMELINE_HEIGHT' => 400,
@@ -97,7 +102,28 @@ class TwitterTimeline extends Module
 
     public static function isValidUsername($username)
     {
-        return (bool) preg_match('/^[A-Za-z0-9_]{1,15}$/', $username);
+        return (bool) preg_match('/^[A-Za-z0-9_]{1,15}$/', (string) $username);
+    }
+
+    public static function isValidTweetId($tweetId)
+    {
+        return (bool) preg_match('/^\d{5,25}$/', (string) $tweetId);
+    }
+
+    private function extractTweetId($input)
+    {
+        $input = trim((string) $input);
+        if ($input === '') {
+            return '';
+        }
+        if (self::isValidTweetId($input)) {
+            return $input;
+        }
+        if (preg_match('#status(?:es)?/(\d{5,25})#', $input, $matches)) {
+            return $matches[1];
+        }
+
+        return '';
     }
 
     public function getContent()
@@ -119,9 +145,22 @@ class TwitterTimeline extends Module
     {
         $errors = [];
 
+        $embed_type = Tools::getValue('TWITTERTIMELINE_EMBED_TYPE');
+        if (!in_array($embed_type, self::EMBED_TYPES, true)) {
+            $embed_type = 'timeline';
+        }
+
         $username = ltrim(trim(Tools::getValue('TWITTERTIMELINE_USERNAME')), '@');
         if ($username !== '' && !self::isValidUsername($username)) {
             $errors[] = $this->l('Please enter a valid Twitter/X username: letters, numbers and underscores only, up to 15 characters, without the @ symbol.');
+        }
+        if ($embed_type === 'timeline' && $username === '') {
+            $errors[] = $this->l('Please enter a Twitter/X username, or switch to Featured tweet mode.');
+        }
+
+        $tweet_id = $this->extractTweetId(Tools::getValue('TWITTERTIMELINE_TWEET_URL'));
+        if ($embed_type === 'tweet' && $tweet_id === '') {
+            $errors[] = $this->l('Please enter a valid tweet link, e.g. https://twitter.com/username/status/1234567890123456789.');
         }
 
         $position = Tools::getValue('TWITTERTIMELINE_POSITION');
@@ -156,6 +195,10 @@ class TwitterTimeline extends Module
         $this->saveConfiguration([
             'TWITTERTIMELINE_USERNAME' => $username,
             'TWITTERTIMELINE_POSITION' => $position,
+            'TWITTERTIMELINE_EMBED_TYPE' => $embed_type,
+            'TWITTERTIMELINE_TWEET_ID' => $tweet_id,
+            'TWITTERTIMELINE_TWEET_HIDE_CONVERSATION' => (int) Tools::getValue('TWITTERTIMELINE_TWEET_HIDE_CONVERSATION'),
+            'TWITTERTIMELINE_TWEET_HIDE_MEDIA' => (int) Tools::getValue('TWITTERTIMELINE_TWEET_HIDE_MEDIA'),
             'TWITTERTIMELINE_DISPLAY_MODE' => $display_mode,
             'TWITTERTIMELINE_TWEET_LIMIT' => $tweet_limit,
             'TWITTERTIMELINE_HEIGHT' => $height,
@@ -173,10 +216,17 @@ class TwitterTimeline extends Module
 
     private function renderConfigurationPage()
     {
+        $tweet_id = Configuration::get('TWITTERTIMELINE_TWEET_ID');
+
         $this->context->smarty->assign([
             'twittertimeline_action_uri' => htmlentities($_SERVER['REQUEST_URI']),
             'twittertimeline_username' => Configuration::get('TWITTERTIMELINE_USERNAME'),
             'twittertimeline_position' => Configuration::get('TWITTERTIMELINE_POSITION'),
+            'twittertimeline_embed_type' => Configuration::get('TWITTERTIMELINE_EMBED_TYPE') ?: 'timeline',
+            'twittertimeline_tweet_id' => $tweet_id,
+            'twittertimeline_tweet_url' => $tweet_id ? 'https://twitter.com/i/status/' . $tweet_id : '',
+            'twittertimeline_tweet_hide_conversation' => (bool) Configuration::get('TWITTERTIMELINE_TWEET_HIDE_CONVERSATION'),
+            'twittertimeline_tweet_hide_media' => (bool) Configuration::get('TWITTERTIMELINE_TWEET_HIDE_MEDIA'),
             'twittertimeline_display_mode' => Configuration::get('TWITTERTIMELINE_DISPLAY_MODE'),
             'twittertimeline_tweet_limit' => Configuration::get('TWITTERTIMELINE_TWEET_LIMIT'),
             'twittertimeline_height' => Configuration::get('TWITTERTIMELINE_HEIGHT'),
@@ -215,9 +265,18 @@ class TwitterTimeline extends Module
         return $iso_code ? Tools::strtolower($iso_code) : 'en';
     }
 
+    private function isConfigured()
+    {
+        if (Configuration::get('TWITTERTIMELINE_EMBED_TYPE') === 'tweet') {
+            return self::isValidTweetId(Configuration::get('TWITTERTIMELINE_TWEET_ID'));
+        }
+
+        return self::isValidUsername(Configuration::get('TWITTERTIMELINE_USERNAME'));
+    }
+
     public function hookActionFrontControllerSetMedia($params)
     {
-        if (!self::isValidUsername(Configuration::get('TWITTERTIMELINE_USERNAME'))) {
+        if (!$this->isConfigured()) {
             return;
         }
 
@@ -233,14 +292,17 @@ class TwitterTimeline extends Module
             return '';
         }
 
-        $username = Configuration::get('TWITTERTIMELINE_USERNAME');
-        if (!self::isValidUsername($username)) {
+        if (!$this->isConfigured()) {
             return '';
         }
 
         $this->context->smarty->assign([
-            'twittertimeline_username' => $username,
+            'twittertimeline_username' => Configuration::get('TWITTERTIMELINE_USERNAME'),
             'twittertimeline_position' => $position,
+            'twittertimeline_embed_type' => Configuration::get('TWITTERTIMELINE_EMBED_TYPE') ?: 'timeline',
+            'twittertimeline_tweet_id' => Configuration::get('TWITTERTIMELINE_TWEET_ID'),
+            'twittertimeline_tweet_hide_conversation' => (bool) Configuration::get('TWITTERTIMELINE_TWEET_HIDE_CONVERSATION'),
+            'twittertimeline_tweet_hide_media' => (bool) Configuration::get('TWITTERTIMELINE_TWEET_HIDE_MEDIA'),
             'twittertimeline_display_mode' => Configuration::get('TWITTERTIMELINE_DISPLAY_MODE'),
             'twittertimeline_tweet_limit' => (int) Configuration::get('TWITTERTIMELINE_TWEET_LIMIT'),
             'twittertimeline_height' => (int) Configuration::get('TWITTERTIMELINE_HEIGHT'),
