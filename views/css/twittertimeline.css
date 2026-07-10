@@ -73,8 +73,10 @@
 	padding: 20px;
 	border: 1px dashed #ddd;
 	border-radius: 4px;
-	overflow: hidden;
-	transform: translateZ(0);
+}
+
+.twittertimeline-preview-frame .twittertimeline-floating__toggle {
+	position: absolute;
 }
 
 /* Admin configuration page */
