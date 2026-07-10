@@ -1,7 +1,7 @@
 {*
 *	Module Name: Twitter and X Feed Widget
 *	Description: Show your live Twitter/X timeline anywhere on your store.
-*	Version: 4.0.4
+*	Version: 4.0.5
 *	Author: MEG Venture
 *
 *	Copyright 2007-2026, MEG Venture (info@megventure.com)
@@ -113,15 +113,23 @@
 		container.appendChild(anchor);
 		twittertimelineLog('anchor built and appended, requesting widgets.js', anchor.outerHTML);
 
+		var rendered = false;
+
 		twittertimelineLoadWidgetsJs(function (twttr) {
 			twittertimelineLog('widgets.js ready, calling twttr.widgets.load()');
+			if (twttr.events && twttr.events.bind) {
+				twttr.events.bind('rendered', function () {
+					rendered = true;
+					twittertimelineLog('rendered event received, the feed loaded successfully');
+				});
+			}
 			twttr.widgets.load(container);
 		});
 
 		setTimeout(function () {
-			var loaded = !!container.querySelector('iframe');
-			twittertimelineLog('8s timeout check, iframe present:', loaded);
-			if (!loaded) {
+			twittertimelineLog('8s timeout check, rendered:', rendered);
+			if (!rendered) {
+				container.innerHTML = '';
 				container.style.display = 'none';
 				if (fallback) {
 					fallback.style.display = '';
