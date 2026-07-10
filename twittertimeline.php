@@ -24,7 +24,7 @@ class TwitterTimeline extends Module
     {
         $this->name = 'twittertimeline';
         $this->tab = 'front_office_features';
-        $this->version = '4.0.0';
+        $this->version = '4.0.1';
         $this->author = 'MEG Venture';
         $this->module_key = '14fcb1e53505a501f39458b0aaa39229';
         $this->need_instance = 0;
@@ -62,7 +62,7 @@ class TwitterTimeline extends Module
 
     private function getHookNames()
     {
-        return ['displayLeftColumn', 'displayRightColumn', 'displayHome', 'displayFooter'];
+        return ['displayLeftColumn', 'displayRightColumn', 'displayHome', 'displayFooter', 'actionFrontControllerSetMedia'];
     }
 
     private function getDefaultConfiguration()
@@ -215,15 +215,10 @@ class TwitterTimeline extends Module
         return $iso_code ? Tools::strtolower($iso_code) : 'en';
     }
 
-    private function renderWidget($position)
+    public function hookActionFrontControllerSetMedia($params)
     {
-        if (Configuration::get('TWITTERTIMELINE_POSITION') !== $position) {
-            return '';
-        }
-
-        $username = Configuration::get('TWITTERTIMELINE_USERNAME');
-        if (!self::isValidUsername($username)) {
-            return '';
+        if (!self::isValidUsername(Configuration::get('TWITTERTIMELINE_USERNAME'))) {
+            return;
         }
 
         $this->context->controller->registerStylesheet(
@@ -235,6 +230,18 @@ class TwitterTimeline extends Module
             'https://platform.twitter.com/widgets.js',
             ['server' => 'remote', 'position' => 'bottom', 'priority' => 200]
         );
+    }
+
+    private function renderWidget($position)
+    {
+        if (Configuration::get('TWITTERTIMELINE_POSITION') !== $position) {
+            return '';
+        }
+
+        $username = Configuration::get('TWITTERTIMELINE_USERNAME');
+        if (!self::isValidUsername($username)) {
+            return '';
+        }
 
         $this->context->smarty->assign([
             'twittertimeline_username' => $username,
@@ -269,6 +276,10 @@ class TwitterTimeline extends Module
 
     public function hookDisplayFooter($params)
     {
-        return $this->renderWidget('footer') . $this->renderWidget('floating');
+        if (Configuration::get('TWITTERTIMELINE_POSITION') === 'floating') {
+            return $this->renderWidget('floating');
+        }
+
+        return $this->renderWidget('footer');
     }
 }

@@ -2,7 +2,7 @@
 *	Module Name: Twitter & X Feed Widget
 *	Module URI: Please contact info@megventure.com
 *	Description: Show your live Twitter/X timeline anywhere on your store. No API keys, no developer account, just your username.
-*	Version: 4.0.0
+*	Version: 4.0.1
 *	Author: MEG Venture
 *
 *	Copyright 2007-2026, MEG Venture (info@megventure.com)
@@ -31,7 +31,7 @@
 	</div>
 	<ol class="twittertimeline-steps">
 		<li><strong>{l s='Enter your Twitter/X username' mod='twittertimeline'}</strong> {l s='below, without the @ symbol.' mod='twittertimeline'}</li>
-		<li><strong>{l s='Choose where it should appear' mod='twittertimeline'}</strong> {l s='on your store: left column, right column, footer, home page, or a floating button.' mod='twittertimeline'}</li>
+		<li><strong>{l s='Choose where the button should appear' mod='twittertimeline'}</strong> {l s='on your store: left column, right column, footer, home page, or a floating button. Every option opens the same popup with your live feed when clicked.' mod='twittertimeline'}</li>
 		<li><strong>{l s='Customize the look' mod='twittertimeline'}</strong> {l s='(theme, colors, size) to match your store.' mod='twittertimeline'}</li>
 		<li><strong>{l s='Save.' mod='twittertimeline'}</strong> {l s="That's it: no developer account, no API keys, ever." mod='twittertimeline'}</li>
 	</ol>
@@ -48,7 +48,7 @@
 	<div class="panel-heading">
 		<i class="icon icon-eye"></i> {l s='Live preview' mod='twittertimeline'}
 	</div>
-	<p class="twittertimeline-hint">{l s='This reflects your last saved settings. Save the form below to update it.' mod='twittertimeline'}</p>
+	<p class="twittertimeline-hint">{l s='This reflects your last saved settings. On your store, visitors click a button to open this in a popup, shown open here for convenience. Save the form below to update it.' mod='twittertimeline'}</p>
 	<div class="twittertimeline-preview">
 		<a class="twitter-timeline"
 			data-theme="{$twittertimeline_theme}"
@@ -86,16 +86,16 @@
 		<i class="icon icon-map-marker"></i> {l s='Placement' mod='twittertimeline'}
 	</div>
 	<div class="form-group">
-		<label class="control-label col-lg-3">{l s='Where should it appear?' mod='twittertimeline'}</label>
+		<label class="control-label col-lg-3">{l s='Where should the button appear?' mod='twittertimeline'}</label>
 		<div class="col-lg-9">
 			<select name="TWITTERTIMELINE_POSITION" class="form-control fixed-width-lg">
 				<option value="left" {if $twittertimeline_position == 'left'}selected{/if}>{l s='Left column' mod='twittertimeline'}</option>
 				<option value="right" {if $twittertimeline_position == 'right'}selected{/if}>{l s='Right column' mod='twittertimeline'}</option>
 				<option value="footer" {if $twittertimeline_position == 'footer'}selected{/if}>{l s='Footer' mod='twittertimeline'}</option>
 				<option value="home" {if $twittertimeline_position == 'home'}selected{/if}>{l s='Home page' mod='twittertimeline'}</option>
-				<option value="floating" {if $twittertimeline_position == 'floating'}selected{/if}>{l s='Floating button (bottom-left)' mod='twittertimeline'}</option>
+				<option value="floating" {if $twittertimeline_position == 'floating'}selected{/if}>{l s='Floating button (fixed, bottom-left corner)' mod='twittertimeline'}</option>
 			</select>
-			<p class="help-block">{l s='Not every theme supports every column position. If nothing appears after saving, try Footer, it works with virtually every theme.' mod='twittertimeline'}</p>
+			<p class="help-block">{l s='In every case, a small button appears at this location; clicking it opens your live feed in a popup. Not every theme supports every column position, if nothing appears after saving, try Footer, it works with virtually every theme.' mod='twittertimeline'}</p>
 		</div>
 	</div>
 </div>
@@ -193,8 +193,8 @@
 		<dd>{l s='Double-check your username for typos and make sure it has no @ symbol. Then confirm your theme actually displays the position you chose, try Footer, which almost every theme supports. Ad blockers and strict tracking blockers can also hide the widget for some visitors; this is expected and outside the module\'s control.' mod='twittertimeline'}</dd>
 		<dt>{l s='The feed shows slightly outdated tweets' mod='twittertimeline'}</dt>
 		<dd>{l s="That's normal: Twitter/X caches the embedded widget for a few minutes on their end. It catches up automatically." mod='twittertimeline'}</dd>
-		<dt>{l s='The floating button does not open' mod='twittertimeline'}</dt>
-		<dd>{l s="The floating button relies on your theme's Bootstrap modal support. Most PrestaShop 1.7+ themes include this by default; a heavily customized theme may need it added back." mod='twittertimeline'}</dd>
+		<dt>{l s='The popup does not open, or opens empty' mod='twittertimeline'}</dt>
+		<dd>{l s="The button relies on your theme's Bootstrap modal support. Most PrestaShop 1.7+ themes include this by default; a heavily customized theme may need it added back." mod='twittertimeline'}</dd>
 		<dt>{l s='Can I use fully custom colors for tweet text?' mod='twittertimeline'}</dt>
 		<dd>{l s="The official widget only supports a Light/Dark theme plus one accent color, by design from Twitter/X. This trade-off is what keeps the feed working reliably without API keys." mod='twittertimeline'}</dd>
 	</dl>
