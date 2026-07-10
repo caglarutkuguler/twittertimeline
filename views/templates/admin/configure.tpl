@@ -2,7 +2,7 @@
 *	Module Name: Twitter & X Feed Widget
 *	Module URI: Please contact info@megventure.com
 *	Description: Show your live Twitter/X timeline anywhere on your store. No API keys, no developer account, just your username.
-*	Version: 4.0.1
+*	Version: 4.0.2
 *	Author: MEG Venture
 *
 *	Copyright 2007-2026, MEG Venture (info@megventure.com)
@@ -48,18 +48,9 @@
 	<div class="panel-heading">
 		<i class="icon icon-eye"></i> {l s='Live preview' mod='twittertimeline'}
 	</div>
-	<p class="twittertimeline-hint">{l s='This reflects your last saved settings. On your store, visitors click a button to open this in a popup, shown open here for convenience. Save the form below to update it.' mod='twittertimeline'}</p>
-	<div class="twittertimeline-preview">
-		<a class="twitter-timeline"
-			data-theme="{$twittertimeline_theme}"
-			{if $twittertimeline_display_mode == 'fixed'}data-tweet-limit="{$twittertimeline_tweet_limit}"{else}data-height="{$twittertimeline_height}"{/if}
-			{if $twittertimeline_link_color}data-link-color="{$twittertimeline_link_color}"{/if}
-			{if $twittertimeline_chrome_attr}data-chrome="{$twittertimeline_chrome_attr}"{/if}
-			data-dnt="{if $twittertimeline_dnt}true{else}false{/if}"
-			data-lang="{$twittertimeline_widget_lang}"
-			href="https://twitter.com/{$twittertimeline_username|escape:'html':'UTF-8'}?ref_src=twsrc%5Etfw">
-			{l s='Tweets by' mod='twittertimeline'} @{$twittertimeline_username|escape:'html':'UTF-8'}
-		</a>
+	<p class="twittertimeline-hint">{l s='This is exactly what visitors will see and click on your store, based on your last saved settings. Save the form below to update it.' mod='twittertimeline'}</p>
+	<div class="twittertimeline-preview-frame">
+		{include file="module:twittertimeline/views/templates/hook/twittertimeline.tpl"}
 	</div>
 </div>
 {/if}
@@ -217,4 +208,3 @@
 		toggleTwitterTimelineFields();
 	})();
 </script>
-<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>

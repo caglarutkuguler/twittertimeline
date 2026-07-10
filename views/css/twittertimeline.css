@@ -56,6 +56,27 @@
 	overflow-y: auto;
 }
 
+.twittertimeline-fallback {
+	text-align: center;
+	color: #6c868e;
+	padding: 30px 10px;
+}
+
+.twittertimeline-fallback a {
+	color: inherit;
+	font-weight: 600;
+}
+
+.twittertimeline-preview-frame {
+	position: relative;
+	min-height: 140px;
+	padding: 20px;
+	border: 1px dashed #ddd;
+	border-radius: 4px;
+	overflow: hidden;
+	transform: translateZ(0);
+}
+
 /* Admin configuration page */
 .twittertimeline-steps {
 	padding-left: 20px;
@@ -68,10 +89,6 @@
 .twittertimeline-hint {
 	color: #6c868e;
 	font-style: italic;
-}
-
-.twittertimeline-preview {
-	max-width: 500px;
 }
 
 .twittertimeline-subfield {

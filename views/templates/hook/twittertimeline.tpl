@@ -1,7 +1,7 @@
 {*
 *	Module Name: Twitter & X Feed Widget
 *	Description: Show your live Twitter/X timeline anywhere on your store.
-*	Version: 4.0.1
+*	Version: 4.0.2
 *	Author: MEG Venture
 *
 *	Copyright 2007-2026, MEG Venture (info@megventure.com)
@@ -41,20 +41,60 @@
 					href="https://twitter.com/{$twittertimeline_username|escape:'html':'UTF-8'}?ref_src=twsrc%5Etfw">
 					{l s='Tweets by' mod='twittertimeline'} @{$twittertimeline_username|escape:'html':'UTF-8'}
 				</a>
+				<p class="twittertimeline-fallback" style="display:none;">
+					{l s='The live feed could not be loaded right now (Twitter/X is temporarily unavailable or rate-limiting embeds).' mod='twittertimeline'}<br>
+					<a href="https://twitter.com/{$twittertimeline_username|escape:'html':'UTF-8'}" target="_blank" rel="noopener">{l s='View this profile directly on Twitter/X' mod='twittertimeline'} &#8599;</a>
+				</p>
 			</div>
 		</div>
 	</div>
 </div>
 
 <script type="text/javascript">
+	window.twttr = (function (d, s, id) {
+		var js, fjs = d.getElementsByTagName(s)[0], t = window.twttr || {};
+		if (d.getElementById(id)) {
+			return t;
+		}
+		js = d.createElement(s);
+		js.id = id;
+		js.src = 'https://platform.twitter.com/widgets.js';
+		fjs.parentNode.insertBefore(js, fjs);
+		t._e = [];
+		t.ready = function (f) {
+			t._e.push(f);
+		};
+		return t;
+	}(document, 'script', 'twitter-wjs'));
+
 	if (typeof jQuery !== 'undefined') {
 		jQuery(document).on('shown.bs.modal', '#twittertimeline-modal', function () {
 			var modal = this;
-			if (window.twttr && window.twttr.ready) {
-				window.twttr.ready(function (twttr) {
-					twttr.widgets.load(modal);
-				});
+			var body = modal.querySelector('.twittertimeline-modal__body');
+			if (!body) {
+				return;
 			}
+			var anchor = body.querySelector('a.twitter-timeline');
+			var fallback = body.querySelector('.twittertimeline-fallback');
+			if (anchor) {
+				anchor.style.display = '';
+			}
+			if (fallback) {
+				fallback.style.display = 'none';
+			}
+			window.twttr.ready(function (twttr) {
+				twttr.widgets.load(modal);
+			});
+			setTimeout(function () {
+				if (body.querySelector('a.twitter-timeline')) {
+					if (anchor) {
+						anchor.style.display = 'none';
+					}
+					if (fallback) {
+						fallback.style.display = '';
+					}
+				}
+			}, 8000);
 		});
 	}
 </script>

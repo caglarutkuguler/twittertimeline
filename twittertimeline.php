@@ -24,7 +24,7 @@ class TwitterTimeline extends Module
     {
         $this->name = 'twittertimeline';
         $this->tab = 'front_office_features';
-        $this->version = '4.0.1';
+        $this->version = '4.0.2';
         $this->author = 'MEG Venture';
         $this->module_key = '14fcb1e53505a501f39458b0aaa39229';
         $this->need_instance = 0;
@@ -224,11 +224,6 @@ class TwitterTimeline extends Module
         $this->context->controller->registerStylesheet(
             'twittertimeline-css',
             'modules/' . $this->name . '/views/css/twittertimeline.css'
-        );
-        $this->context->controller->registerJavascript(
-            'twittertimeline-widgets-js',
-            'https://platform.twitter.com/widgets.js',
-            ['server' => 'remote', 'position' => 'bottom', 'priority' => 200]
         );
     }
 
