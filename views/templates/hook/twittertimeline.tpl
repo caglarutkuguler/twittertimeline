@@ -50,6 +50,8 @@
 </div>
 
 <script type="text/javascript">
+	console.log('[TwitterTimeline] script tag parsed and executing');
+
 	function twittertimelineLoadWidgetsJs(callback) {
 		if (window.twttr && window.twttr.widgets) {
 			callback(window.twttr);
@@ -75,10 +77,10 @@
 
 	var TWITTERTIMELINE_DEBUG = true;
 	function twittertimelineLog() {
-		if (TWITTERTIMELINE_DEBUG && window.console && console.debug) {
+		if (TWITTERTIMELINE_DEBUG && window.console && console.log) {
 			var args = Array.prototype.slice.call(arguments);
 			args.unshift('[TwitterTimeline]');
-			console.debug.apply(console, args);
+			console.log.apply(console, args);
 		}
 	}
 
