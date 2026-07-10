@@ -2,7 +2,7 @@
 *	Module Name: Twitter and X Feed Widget
 *	Module URI: Please contact info@megventure.com
 *	Description: Show your live Twitter/X timeline anywhere on your store. No API keys, no developer account, just your username.
-*	Version: 4.0.3
+*	Version: 4.0.4
 *	Author: MEG Venture
 *
 *	Copyright 2007-2026, MEG Venture (info@megventure.com)

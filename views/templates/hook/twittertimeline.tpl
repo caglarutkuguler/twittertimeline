@@ -1,7 +1,7 @@
 {*
 *	Module Name: Twitter and X Feed Widget
 *	Description: Show your live Twitter/X timeline anywhere on your store.
-*	Version: 4.0.3
+*	Version: 4.0.4
 *	Author: MEG Venture
 *
 *	Copyright 2007-2026, MEG Venture (info@megventure.com)
@@ -12,11 +12,11 @@
 
 <div class="twittertimeline-trigger twittertimeline-trigger--{$twittertimeline_position}">
 {if $twittertimeline_position == 'floating'}
-	<button type="button" class="twittertimeline-floating__toggle" data-toggle="modal" data-target="#twittertimeline-modal" aria-label="{l s='Latest posts on Twitter/X' mod='twittertimeline'}">
+	<button type="button" class="twittertimeline-floating__toggle twittertimeline-open" data-toggle="modal" data-target="#twittertimeline-modal" aria-label="{l s='Latest posts on Twitter/X' mod='twittertimeline'}">
 		<svg viewBox="0 0 24 24" width="26" height="26" fill="currentColor" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
 	</button>
 {else}
-	<button type="button" class="twittertimeline-cta" data-toggle="modal" data-target="#twittertimeline-modal">
+	<button type="button" class="twittertimeline-cta twittertimeline-open" data-toggle="modal" data-target="#twittertimeline-modal">
 		<svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
 		<span>{l s='See our latest posts on Twitter/X' mod='twittertimeline'}</span>
 	</button>
@@ -52,6 +52,15 @@
 <script type="text/javascript">
 	console.log('[TwitterTimeline] script tag parsed and executing');
 
+	var TWITTERTIMELINE_DEBUG = true;
+	function twittertimelineLog() {
+		if (TWITTERTIMELINE_DEBUG && window.console && console.log) {
+			var args = Array.prototype.slice.call(arguments);
+			args.unshift('[TwitterTimeline]');
+			console.log.apply(console, args);
+		}
+	}
+
 	function twittertimelineLoadWidgetsJs(callback) {
 		if (window.twttr && window.twttr.widgets) {
 			callback(window.twttr);
@@ -75,64 +84,56 @@
 		window.twttr.ready(callback);
 	}
 
-	var TWITTERTIMELINE_DEBUG = true;
-	function twittertimelineLog() {
-		if (TWITTERTIMELINE_DEBUG && window.console && console.log) {
-			var args = Array.prototype.slice.call(arguments);
-			args.unshift('[TwitterTimeline]');
-			console.log.apply(console, args);
+	function twittertimelineOpen() {
+		twittertimelineLog('trigger clicked');
+		var modal = document.getElementById('twittertimeline-modal');
+		var container = modal ? modal.querySelector('.twittertimeline-embed') : null;
+		var fallback = modal ? modal.querySelector('.twittertimeline-fallback') : null;
+		twittertimelineLog('modal found:', !!modal, 'container found:', !!container, 'already has iframe:', !!(container && container.querySelector('iframe')));
+		if (!container || container.querySelector('iframe')) {
+			return;
 		}
-	}
 
-	twittertimelineLog('template loaded, jQuery available:', typeof jQuery !== 'undefined');
+		container.innerHTML = '';
+		container.style.display = '';
+		if (fallback) {
+			fallback.style.display = 'none';
+		}
 
-	if (typeof jQuery !== 'undefined') {
-		jQuery(document).on('shown.bs.modal', '#twittertimeline-modal', function () {
-			twittertimelineLog('shown.bs.modal fired');
-			var modal = this;
-			var container = modal.querySelector('.twittertimeline-embed');
-			var fallback = modal.querySelector('.twittertimeline-fallback');
-			twittertimelineLog('container found:', !!container, 'already has iframe:', !!(container && container.querySelector('iframe')));
-			if (!container || container.querySelector('iframe')) {
-				return;
+		var anchor = document.createElement('a');
+		anchor.className = 'twitter-timeline';
+		anchor.href = 'https://twitter.com/' + container.getAttribute('data-username') + '?ref_src=twsrc%5Etfw';
+		anchor.textContent = 'Tweets by @' + container.getAttribute('data-username');
+		['theme', 'tweet-limit', 'height', 'link-color', 'chrome', 'dnt', 'lang'].forEach(function (attr) {
+			var value = container.getAttribute('data-' + attr);
+			if (value) {
+				anchor.setAttribute('data-' + attr, value);
 			}
-
-			container.innerHTML = '';
-			container.style.display = '';
-			if (fallback) {
-				fallback.style.display = 'none';
-			}
-
-			var anchor = document.createElement('a');
-			anchor.className = 'twitter-timeline';
-			anchor.href = 'https://twitter.com/' + container.getAttribute('data-username') + '?ref_src=twsrc%5Etfw';
-			anchor.textContent = 'Tweets by @' + container.getAttribute('data-username');
-			['theme', 'tweet-limit', 'height', 'link-color', 'chrome', 'dnt', 'lang'].forEach(function (attr) {
-				var value = container.getAttribute('data-' + attr);
-				if (value) {
-					anchor.setAttribute('data-' + attr, value);
-				}
-			});
-			container.appendChild(anchor);
-			twittertimelineLog('anchor built and appended, requesting widgets.js', anchor.outerHTML);
-
-			twittertimelineLoadWidgetsJs(function (twttr) {
-				twittertimelineLog('widgets.js ready, calling twttr.widgets.load()');
-				twttr.widgets.load(container);
-			});
-
-			setTimeout(function () {
-				var loaded = !!container.querySelector('iframe');
-				twittertimelineLog('8s timeout check, iframe present:', loaded);
-				if (!loaded) {
-					container.style.display = 'none';
-					if (fallback) {
-						fallback.style.display = '';
-					}
-				}
-			}, 8000);
 		});
-	} else {
-		twittertimelineLog('jQuery is not defined on this page, the popup trigger and feed loader cannot run.');
+		container.appendChild(anchor);
+		twittertimelineLog('anchor built and appended, requesting widgets.js', anchor.outerHTML);
+
+		twittertimelineLoadWidgetsJs(function (twttr) {
+			twittertimelineLog('widgets.js ready, calling twttr.widgets.load()');
+			twttr.widgets.load(container);
+		});
+
+		setTimeout(function () {
+			var loaded = !!container.querySelector('iframe');
+			twittertimelineLog('8s timeout check, iframe present:', loaded);
+			if (!loaded) {
+				container.style.display = 'none';
+				if (fallback) {
+					fallback.style.display = '';
+				}
+			}
+		}, 8000);
 	}
+
+	document.addEventListener('click', function (event) {
+		var trigger = event.target.closest ? event.target.closest('.twittertimeline-open') : null;
+		if (trigger) {
+			twittertimelineOpen();
+		}
+	});
 </script>
