@@ -1,8 +1,8 @@
 {*
-*	Module Name: Twitter & X Feed Widget
+*	Module Name: Twitter and X Feed Widget
 *	Module URI: Please contact info@megventure.com
 *	Description: Show your live Twitter/X timeline anywhere on your store. No API keys, no developer account, just your username.
-*	Version: 4.0.2
+*	Version: 4.0.3
 *	Author: MEG Venture
 *
 *	Copyright 2007-2026, MEG Venture (info@megventure.com)
@@ -19,7 +19,7 @@
 
 <div class="panel twittertimeline-intro">
 	<div class="panel-heading">
-		<i class="icon icon-twitter"></i> {l s='Twitter & X Feed Widget' mod='twittertimeline'}
+		<i class="icon icon-twitter"></i> {l s='Twitter and X Feed Widget' mod='twittertimeline'}
 	</div>
 	<p>{l s='Show your live Twitter/X timeline anywhere on your store. This module embeds the official Twitter/X widget, so there are no API keys to manage, no developer account to create, and nothing that can break when Twitter/X changes its API.' mod='twittertimeline'}</p>
 </div>

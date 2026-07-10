@@ -1,4 +1,4 @@
-# Twitter & X Feed Widget
+# Twitter and X Feed Widget
 
 Show your live Twitter/X timeline anywhere on your PrestaShop store: left column, right column, footer, home page, or a floating button. No API keys, no developer account, no OAuth setup. Just your username.
 
@@ -21,7 +21,7 @@ Version 4.0.0 switches entirely to Twitter/X's own official embedded timeline wi
 ## Quick start
 
 1. Install and activate the module.
-2. Go to **Modules > Twitter & X Feed Widget > Configure**.
+2. Go to **Modules > Twitter and X Feed Widget > Configure**.
 3. Enter your Twitter/X username (no `@`).
 4. Choose where it should appear.
 5. Adjust appearance if you like, then **Save**.

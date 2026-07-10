@@ -24,7 +24,7 @@ class TwitterTimeline extends Module
     {
         $this->name = 'twittertimeline';
         $this->tab = 'front_office_features';
-        $this->version = '4.0.2';
+        $this->version = '4.0.3';
         $this->author = 'MEG Venture';
         $this->module_key = '14fcb1e53505a501f39458b0aaa39229';
         $this->need_instance = 0;
@@ -33,7 +33,7 @@ class TwitterTimeline extends Module
 
         parent::__construct();
 
-        $this->displayName = $this->l('Twitter & X Feed Widget');
+        $this->displayName = $this->l('Twitter and X Feed Widget');
         $this->description = $this->l('Show your live Twitter/X timeline anywhere on your store. No API keys, no developer account, just your username.');
         $this->confirmUninstall = $this->l('Are you sure you want to remove your Twitter/X feed settings?');
 
