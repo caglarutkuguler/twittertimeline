@@ -73,11 +73,24 @@
 		window.twttr.ready(callback);
 	}
 
+	var TWITTERTIMELINE_DEBUG = true;
+	function twittertimelineLog() {
+		if (TWITTERTIMELINE_DEBUG && window.console && console.debug) {
+			var args = Array.prototype.slice.call(arguments);
+			args.unshift('[TwitterTimeline]');
+			console.debug.apply(console, args);
+		}
+	}
+
+	twittertimelineLog('template loaded, jQuery available:', typeof jQuery !== 'undefined');
+
 	if (typeof jQuery !== 'undefined') {
 		jQuery(document).on('shown.bs.modal', '#twittertimeline-modal', function () {
+			twittertimelineLog('shown.bs.modal fired');
 			var modal = this;
 			var container = modal.querySelector('.twittertimeline-embed');
 			var fallback = modal.querySelector('.twittertimeline-fallback');
+			twittertimelineLog('container found:', !!container, 'already has iframe:', !!(container && container.querySelector('iframe')));
 			if (!container || container.querySelector('iframe')) {
 				return;
 			}
@@ -99,13 +112,17 @@
 				}
 			});
 			container.appendChild(anchor);
+			twittertimelineLog('anchor built and appended, requesting widgets.js', anchor.outerHTML);
 
 			twittertimelineLoadWidgetsJs(function (twttr) {
+				twittertimelineLog('widgets.js ready, calling twttr.widgets.load()');
 				twttr.widgets.load(container);
 			});
 
 			setTimeout(function () {
-				if (!container.querySelector('iframe')) {
+				var loaded = !!container.querySelector('iframe');
+				twittertimelineLog('8s timeout check, iframe present:', loaded);
+				if (!loaded) {
 					container.style.display = 'none';
 					if (fallback) {
 						fallback.style.display = '';
@@ -113,5 +130,7 @@
 				}
 			}, 8000);
 		});
+	} else {
+		twittertimelineLog('jQuery is not defined on this page, the popup trigger and feed loader cannot run.');
 	}
 </script>
