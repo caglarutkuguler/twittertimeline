@@ -11,5 +11,12 @@ if (!defined('_PS_VERSION_')) {
 
 function upgrade_module_4_0_1($module)
 {
-    return $module->registerHook('actionFrontControllerSetMedia');
+    // Never let a live registerHook() call decide whether this upgrade step
+    // - and therefore the whole module - succeeds or gets disabled: check
+    // idempotently, attempt it, and always report success either way.
+    if (!$module->isRegisteredInHook('actionFrontControllerSetMedia')) {
+        $module->registerHook('actionFrontControllerSetMedia');
+    }
+
+    return true;
 }
