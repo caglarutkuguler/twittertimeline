@@ -81,6 +81,10 @@ $_MODULE['<{twittertimeline}prestashop>6b449efcbd55be77bc1c707a943f1f1a'] = 'The
 $_MODULE['<{twittertimeline}prestashop>37839789200118c7dc8a6a4afe7734c5'] = 'View this tweet directly on Twitter/X';
 $_MODULE['<{twittertimeline}prestashop>1629acd24fc2215c2cf6a0f48c204612'] = 'View this profile directly on Twitter/X';
 
+// --- Backfilled missing keys (auto-sync)
+$_MODULE['<{twittertimeline}prestashop>configure_c657a2b33d7f5f68b3ad20cc35ec8661'] = 'Vérifiez votre nom d’utilisateur ou votre lien tweet pour les fautes de frappe. Vérifiez ensuite que votre thème affiche réellement la position que vous avez choisie, essayez le pied de page, pris en charge par presque tous les thèmes. Les bloqueurs de publicités et les bloqueurs de suivi strict peuvent également masquer le widget pour certains visiteurs ; ceci est attendu et hors du contrôle du module.';
+$_MODULE['<{twittertimeline}prestashop>configure_fa2a1438885b093a7b0e2200dfdd0c1a'] = 'Masquer le lien "Afficher ce fil"';
+
 // --- Auto-regenerated below: keys include the template-basename source segment
 //     PrestaShop 1.7+ actually looks up (<{module}prestashop>{basename}_{hash}).
 //     The entries above this line use the old (pre-1.7, basename-less) key format

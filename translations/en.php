@@ -144,7 +144,7 @@ $_MODULE['<{twittertimeline}prestashop>configure_f15c1cae7882448b3fb0404682e17e6
 $_MODULE['<{twittertimeline}prestashop>configure_f2df9ca82b778b80a0172dbdf490ef34'] = 'Tweet link';
 $_MODULE['<{twittertimeline}prestashop>configure_f7ebb0114260ea9534256ffda00facde'] = 'Height of the scrolling feed, between 200 and 1200 pixels.';
 $_MODULE['<{twittertimeline}prestashop>configure_f9e4884c7654daa6581b42ed90aeaba4'] = 'Left column';
-$_MODULE['<{twittertimeline}prestashop>configure_fa2a1438885b093a7b0e2200dfdd0c1a'] = 'Hide \"Show this thread\" link';
+$_MODULE['<{twittertimeline}prestashop>configure_fa2a1438885b093a7b0e2200dfdd0c1a'] = 'Hide "Show this thread" link';
 $_MODULE['<{twittertimeline}prestashop>configure_feb6cc332459769fe15570bf332a6b50'] = 'Right column';
 $_MODULE['<{twittertimeline}prestashop>twittertimeline_12dc852d5d61b972d1b1b88782196d5d'] = 'Latest posts on Twitter/X';
 $_MODULE['<{twittertimeline}prestashop>twittertimeline_1629acd24fc2215c2cf6a0f48c204612'] = 'View this profile directly on Twitter/X';
