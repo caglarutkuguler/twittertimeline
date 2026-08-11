@@ -4,7 +4,7 @@ Show your live Twitter/X timeline, or a single featured tweet, anywhere on your 
 
 **Technical module name:** `twittertimeline` (unchanged from previous versions, so existing installs upgrade cleanly)
 **Compatibility:** PrestaShop 1.7 and above (1.7, 8.x, 9.x)
-**Version:** 4.1.0
+**Version:** 4.1.1
 
 ## Why this rewrite
 

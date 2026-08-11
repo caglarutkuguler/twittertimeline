@@ -1,7 +1,7 @@
 {*
 *	Module Name: Twitter and X Feed Widget
 *	Description: Show your live Twitter/X timeline, or a single featured tweet, anywhere on your store.
-*	Version: 4.1.0
+*	Version: 4.1.1
 *	Author: MEG Venture
 *
 *	Copyright 2007-2026, MEG Venture (info@megventure.com)
@@ -54,17 +54,6 @@
 </div>
 
 <script type="text/javascript">
-	console.log('[TwitterTimeline] script tag parsed and executing');
-
-	var TWITTERTIMELINE_DEBUG = true;
-	function twittertimelineLog() {
-		if (TWITTERTIMELINE_DEBUG && window.console && console.log) {
-			var args = Array.prototype.slice.call(arguments);
-			args.unshift('[TwitterTimeline]');
-			console.log.apply(console, args);
-		}
-	}
-
 	function twittertimelineLoadWidgetsJs(callback) {
 		if (window.twttr && window.twttr.widgets) {
 			callback(window.twttr);
@@ -126,11 +115,9 @@
 	}
 
 	function twittertimelineOpen() {
-		twittertimelineLog('trigger clicked');
 		var modal = document.getElementById('twittertimeline-modal');
 		var container = modal ? modal.querySelector('.twittertimeline-embed') : null;
 		var fallback = modal ? modal.querySelector('.twittertimeline-fallback') : null;
-		twittertimelineLog('modal found:', !!modal, 'container found:', !!container, 'already has iframe:', !!(container && container.querySelector('iframe')));
 		if (!container || container.querySelector('iframe')) {
 			return;
 		}
@@ -143,23 +130,19 @@
 
 		var embedEl = twittertimelineBuildEmbed(container);
 		container.appendChild(embedEl);
-		twittertimelineLog('embed built and appended, requesting widgets.js', embedEl.outerHTML);
 
 		var rendered = false;
 
 		twittertimelineLoadWidgetsJs(function (twttr) {
-			twittertimelineLog('widgets.js ready, calling twttr.widgets.load()');
 			if (twttr.events && twttr.events.bind) {
 				twttr.events.bind('rendered', function () {
 					rendered = true;
-					twittertimelineLog('rendered event received, the feed loaded successfully');
 				});
 			}
 			twttr.widgets.load(container);
 		});
 
 		setTimeout(function () {
-			twittertimelineLog('8s timeout check, rendered:', rendered);
 			if (!rendered) {
 				container.innerHTML = '';
 				container.style.display = 'none';
