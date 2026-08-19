@@ -128,6 +128,8 @@ class TwitterTimeline extends Module
 
     public function getContent()
     {
+        require_once _PS_MODULE_DIR_ . 'twittertimeline/classes/MegVentureAdsWidget.php';
+
         $output = '';
 
         if (Tools::isSubmit('submitTwitterTimeline')) {
@@ -138,7 +140,8 @@ class TwitterTimeline extends Module
             Configuration::updateValue('TWITTERTIMELINE_HIDE_TUTORIAL', 1);
         }
 
-        return $output . $this->renderConfigurationPage();
+        return $output . $this->renderConfigurationPage()
+            . MegVentureAdsWidget::render('https://megventure.com/index.php?fc=module&module=virtualproductcombination&controller=adswidget');
     }
 
     private function processConfigurationForm()
