@@ -14,7 +14,7 @@
 *
 *  @author MEG Venture <info@megventure.com>
 *  @copyright  2007-2016 PrestaShop SA
-*  @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+*  @license    https://opensource.org/licenses/MIT MIT License
 *  International Registered Trademark & Property of PrestaShop SA
 */
 				    	

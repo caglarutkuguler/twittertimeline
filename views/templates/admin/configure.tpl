@@ -5,10 +5,10 @@
 *	Version: 4.1.1
 *	Author: MEG Venture
 *
-*	Copyright 2007-2026, MEG Venture (info@megventure.com)
+*	Copyright 2007-2026, MEG Venture & Consulting Ltd. (info@megventure.com)
 *
-*	This program is not a free software: you can't redistribute it and/or modify
-*	it. All rights reserved.
+*	This program is free software: you may redistribute it and/or modify it
+*	under the terms of the MIT License. See the LICENSE file in the repository root.
 *
 *
 *	This copyright notice  and licence should be retained in all modules based on this framework.
