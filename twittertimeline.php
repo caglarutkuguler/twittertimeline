@@ -25,7 +25,7 @@ class TwitterTimeline extends Module
     {
         $this->name = 'twittertimeline';
         $this->tab = 'front_office_features';
-        $this->version = '4.1.1';
+        $this->version = '4.2.0';
         $this->author = 'MEG Venture';
         $this->module_key = '14fcb1e53505a501f39458b0aaa39229';
         $this->need_instance = 0;
@@ -45,15 +45,21 @@ class TwitterTimeline extends Module
 
     public function install()
     {
+        require_once dirname(__FILE__) . '/classes/MegVentureReviewNudge.php';
+
         if (!parent::install() || !$this->registerHook($this->getHookNames())) {
             return false;
         }
 
-        return $this->saveConfiguration($this->getDefaultConfiguration());
+        return $this->saveConfiguration($this->getDefaultConfiguration())
+            && MegVentureReviewNudge::onInstall();
     }
 
     public function uninstall()
     {
+        require_once dirname(__FILE__) . '/classes/MegVentureReviewNudge.php';
+        MegVentureReviewNudge::onUninstall();
+
         foreach (array_keys($this->getDefaultConfiguration()) as $key) {
             Configuration::deleteByName($key);
         }
@@ -129,6 +135,16 @@ class TwitterTimeline extends Module
     public function getContent()
     {
         require_once _PS_MODULE_DIR_ . 'twittertimeline/classes/MegVentureAdsWidget.php';
+        require_once _PS_MODULE_DIR_ . 'twittertimeline/classes/MegVentureReviewNudge.php';
+
+        // May redirect (review click) — before anything renders on purpose.
+        // Concatenated configure URL on purpose: getAdminLink()'s $params
+        // argument does not exist on the oldest supported cores.
+        $nudge = MegVentureReviewNudge::handleRequest($this)
+            . MegVentureReviewNudge::render(
+                $this,
+                $this->context->link->getAdminLink('AdminModules', true) . '&configure=' . $this->name
+            );
 
         $output = '';
 
@@ -140,7 +156,7 @@ class TwitterTimeline extends Module
             Configuration::updateValue('TWITTERTIMELINE_HIDE_TUTORIAL', 1);
         }
 
-        return $output . $this->renderConfigurationPage()
+        return $nudge . $output . $this->renderConfigurationPage()
             . MegVentureAdsWidget::render('https://megventure.com/index.php?fc=module&module=virtualproductcombination&controller=adswidget');
     }
 
