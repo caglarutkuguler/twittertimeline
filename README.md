@@ -4,7 +4,7 @@ Show your live Twitter/X timeline, or a single featured tweet, anywhere on your 
 
 **Technical module name:** `twittertimeline` (unchanged from previous versions, so existing installs upgrade cleanly)
 **Compatibility:** PrestaShop 1.7 and above (1.7, 8.x, 9.x)
-**Version:** 4.1.1
+**Version:** 4.2.0
 
 **Installable zip:** the archive GitHub generates on the releases page is a source snapshot, not an installable module — PrestaShop rejects it because the folder inside carries the version number. Download the ready-to-install zip from [megventure.com](https://megventure.com/en/free-modules/33-prestashop-twitter-x-feed-widget-no-api-keys-8691246295736.html).
 
