@@ -14,12 +14,31 @@
 *	This copyright notice  and licence should be retained in all modules based on this framework.
 *	This does not affect your rights to assert copyright over your own original work.
 *}
+<style>
+{literal}
+/* Back-office icons. These used to be FontAwesome 4, which the back office shipped up to
+   PrestaShop 8; PrestaShop 9 replaced it with Material Symbols Outlined. An icon-font class
+   selects a private-use code point, so the moment the font is not there the browser has
+   nothing to fall back to and draws an empty box. These now come from the set the core loads
+   for its own interface, which is ligature-based: the icon name is the element's text.
+   Sized down from the 24px default and set back to inheriting the text colour, so they sit
+   where the FontAwesome ones did. */
+.material-icons.mv-ico{font-size:18px;line-height:1;vertical-align:middle;margin-right:4px;}
+.material-icons.mv-ico,.material-icons.mv-ico:hover{color:inherit;}
+h3 .material-icons.mv-ico,
+.panel-heading .material-icons.mv-ico{font-size:20px;}
+.btn .material-icons.mv-ico{font-size:16px;margin-right:3px;}
+/* Brand marks have no Material Symbol, so they stay inline SVG. */
+.mv-brand{width:16px;height:16px;vertical-align:-3px;margin-right:4px;}
+h3 .mv-brand,.panel-heading .mv-brand{width:18px;height:18px;vertical-align:-4px;}
+{/literal}
+</style>
 
 <link rel="stylesheet" href="{$twittertimeline_module_dir}views/css/twittertimeline.css">
 
 <div class="panel twittertimeline-intro">
 	<div class="panel-heading">
-		<i class="icon icon-twitter"></i> {l s='Twitter and X Feed Widget' mod='twittertimeline'}
+		<svg class="mv-brand" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false"><path fill="currentColor" d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg> {l s='Twitter and X Feed Widget' mod='twittertimeline'}
 	</div>
 	<p>{l s='Show your live Twitter/X timeline, or a single featured tweet, anywhere on your store. This module embeds the official Twitter/X widget, so there are no API keys to manage, no developer account to create, and nothing that can break when Twitter/X changes its API.' mod='twittertimeline'}</p>
 </div>
@@ -27,7 +46,7 @@
 {if !$twittertimeline_hide_tutorial}
 <div class="panel">
 	<div class="panel-heading">
-		<i class="icon icon-graduation-cap"></i> {l s='Quick start' mod='twittertimeline'}
+		<i class="material-icons mv-ico">school</i> {l s='Quick start' mod='twittertimeline'}
 	</div>
 	<ol class="twittertimeline-steps">
 		<li><strong>{l s='Enter your Twitter/X username, or paste a tweet link' mod='twittertimeline'}</strong> {l s='below, depending on whether you want a live feed or a single featured post.' mod='twittertimeline'}</li>
@@ -37,7 +56,7 @@
 	</ol>
 	<form action="{$twittertimeline_action_uri}" method="post">
 		<button type="submit" name="submitTwitterTimelineTutorial" class="btn btn-default">
-			<i class="icon icon-eye-slash"></i> {l s='Got it, hide this' mod='twittertimeline'}
+			<i class="material-icons mv-ico">visibility_off</i> {l s='Got it, hide this' mod='twittertimeline'}
 		</button>
 	</form>
 </div>
@@ -46,7 +65,7 @@
 {if $twittertimeline_username || $twittertimeline_tweet_id}
 <div class="panel">
 	<div class="panel-heading">
-		<i class="icon icon-eye"></i> {l s='Live preview' mod='twittertimeline'}
+		<i class="material-icons mv-ico">visibility</i> {l s='Live preview' mod='twittertimeline'}
 	</div>
 	<p class="twittertimeline-hint">{l s='This is exactly what visitors will see and click on your store, based on your last saved settings. Save the form below to update it.' mod='twittertimeline'}</p>
 	<div class="twittertimeline-preview-frame">
@@ -58,7 +77,7 @@
 <form action="{$twittertimeline_action_uri}" method="post" class="form-horizontal twittertimeline-form">
 <div class="panel">
 	<div class="panel-heading">
-		<i class="icon icon-twitter"></i> {l s='Content' mod='twittertimeline'}
+		<svg class="mv-brand" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false"><path fill="currentColor" d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg> {l s='Content' mod='twittertimeline'}
 	</div>
 	<div class="form-group">
 		<label class="control-label col-lg-3">{l s='What should it show?' mod='twittertimeline'}</label>
@@ -95,7 +114,7 @@
 
 <div class="panel">
 	<div class="panel-heading">
-		<i class="icon icon-map-marker"></i> {l s='Placement' mod='twittertimeline'}
+		<i class="material-icons mv-ico">place</i> {l s='Placement' mod='twittertimeline'}
 	</div>
 	<div class="form-group">
 		<label class="control-label col-lg-3">{l s='Where should the button appear?' mod='twittertimeline'}</label>
@@ -114,7 +133,7 @@
 
 <div class="panel">
 	<div class="panel-heading">
-		<i class="icon icon-paint-brush"></i> {l s='Appearance' mod='twittertimeline'}
+		<i class="material-icons mv-ico">brush</i> {l s='Appearance' mod='twittertimeline'}
 	</div>
 	<div class="form-group" id="twittertimeline-field-display-mode">
 		<label class="control-label col-lg-3">{l s='Number of tweets' mod='twittertimeline'}</label>
@@ -188,7 +207,7 @@
 
 <div class="panel">
 	<div class="panel-heading">
-		<i class="icon icon-shield"></i> {l s='Privacy' mod='twittertimeline'}
+		<i class="material-icons mv-ico">shield</i> {l s='Privacy' mod='twittertimeline'}
 	</div>
 	<div class="form-group">
 		<label class="control-label col-lg-3">{l s='Do Not Track' mod='twittertimeline'}</label>
@@ -210,7 +229,7 @@
 
 <div class="panel">
 	<div class="panel-heading">
-		<i class="icon icon-question-circle"></i> {l s='Troubleshooting' mod='twittertimeline'}
+		<i class="material-icons mv-ico">help</i> {l s='Troubleshooting' mod='twittertimeline'}
 	</div>
 	<dl class="twittertimeline-faq">
 		<dt>{l s="My feed or tweet isn't showing up" mod='twittertimeline'}</dt>
