@@ -167,3 +167,7 @@ $_MODULE['<{twittertimeline}prestashop>twittertimeline_ce0938e72c141676fe8575ba8
 $_MODULE['<{twittertimeline}prestashop>twittertimeline_d37e385a00623c362f03ab5f8e85ca44'] = 'Latest from';
 $_MODULE['<{twittertimeline}prestashop>twittertimeline_d3d2e617335f08df83599665eef8a418'] = 'Close';
 $_MODULE['<{twittertimeline}prestashop>twittertimeline_e2a5b7cb9f2c1e757e8aa6359d09da81'] = 'Show your live Twitter/X timeline, or a single featured tweet, anywhere on your store. No API keys, no developer account, just your username.';
+$_MODULE['<{twittertimeline}prestashop>megventurereviewnudge_c980491d2b999421c4aa1ef4449323e1'] = 'Soddisfatto di questo modulo? Una breve recensione aiuta altri commercianti a trovarlo.';
+$_MODULE['<{twittertimeline}prestashop>megventurereviewnudge_6ecbf3c5ab7a06f08c526f02bce2b2d6'] = 'Lascia una recensione';
+$_MODULE['<{twittertimeline}prestashop>megventurereviewnudge_8ad4303b83a62fb6ca3b025bad5bc114'] = 'No, grazie';
+$_MODULE['<{twittertimeline}prestashop>megventurereviewnudge_4d170dcb0d03a0efa011c9193219bb68'] = 'Va bene, non lo chiederemo più.';
