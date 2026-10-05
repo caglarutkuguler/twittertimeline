@@ -31,6 +31,23 @@ All notable changes to **Twitter and X Feed Widget** (`twittertimeline`).
   with no key missing, added or empty, and by recomputing every trailing hash
   against the quote-escaped English source.
 
+- **Six strings on the configuration page could not be translated at all.**
+  Five had no key in any locale file, so no translation could ever reach them
+  and they rendered in English in all nine languages — the step-4 line
+  *"That's it: no developer account, no API keys, ever."*, the Do Not Track
+  checkbox label, and three of the troubleshooting entries. The sixth, the
+  answer about custom tweet colours, had only a bare-hash key, which
+  PrestaShop 1.7+ never looks up.
+
+  All five missing ones contain an apostrophe, which is the signature of the
+  string exporter dropping them rather than of anything wrong in the template.
+  The six keys are now present in all eight files with the
+  `configure_<md5>` segment the template actually asks for, each hash
+  confirmed against `md5(preg_replace("/\\*'/", "\'", $source))`.
+
+  `l10n_template_coverage.py` now reports **all 77 template strings have a
+  reachable key**, up from 71.
+
 ## 4.2.1
 
 ### Fixed
