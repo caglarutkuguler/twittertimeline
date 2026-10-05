@@ -2,6 +2,35 @@
 
 All notable changes to **Twitter and X Feed Widget** (`twittertimeline`).
 
+## Unreleased
+
+### Fixed
+
+- **The module shipped seven locale files that were almost entirely English.**
+  `tr`, `fr`, `es`, `de`, `it`, `nl` and `pl` were each present, correctly
+  named, and carried the complete 162-key set with every key hash matching
+  `en.php` — so every structural check passed. But 156 of those 162 values
+  were the English source text, copied verbatim. Only 6 strings had ever been
+  translated, and 4 of those were the shared review-prompt text that every MEG
+  module embeds, leaving **2 strings** of the module's own interface translated
+  per language.
+
+  The reason this lasted is worth recording: a locale file's *keys* are what
+  the usual checks compare, and the keys were perfect. Nothing about a file
+  full of English is structurally wrong, so file-exists, name, key-count and
+  hash checks all pass. Only reading the values finds it.
+
+  All 156 are now translated in all seven languages. The module's own copy —
+  configuration page, validation messages, troubleshooting answers, and the
+  storefront button and popup — now renders in the merchant's and shopper's
+  language.
+
+  No key changed, because a legacy PrestaShop key embeds `md5()` of the
+  *English* source string; only values were rewritten. Verified with `php -l`
+  on all nine files, by loading each array in PHP and confirming 162 entries
+  with no key missing, added or empty, and by recomputing every trailing hash
+  against the quote-escaped English source.
+
 ## 4.2.1
 
 ### Fixed
