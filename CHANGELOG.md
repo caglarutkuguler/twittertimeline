@@ -2,7 +2,7 @@
 
 All notable changes to **Twitter and X Feed Widget** (`twittertimeline`).
 
-## Unreleased
+## 4.2.2
 
 ### Fixed
 
@@ -47,6 +47,16 @@ All notable changes to **Twitter and X Feed Widget** (`twittertimeline`).
 
   `l10n_template_coverage.py` now reports **all 77 template strings have a
   reachable key**, up from 71.
+
+- **`translations/index.php` began with a UTF-8 byte-order mark.** It was the
+  only one of the module's ten directory-guard stubs that carried one, and it
+  arrived with the commit that first added the locale files, so it had never
+  been normalized. The three BOM bytes sit *before* `<?php`, which means PHP
+  sends them as output the moment the file is reached — and every statement in
+  that file is a `header()` call. Output before a header is "headers already
+  sent", so the guard's redirect never fired and the whole stub was silently
+  inert. It is also a hard rejection in the PrestaShop Addons validator. The
+  file is now byte-identical to the other nine stubs.
 
 ## 4.2.1
 
