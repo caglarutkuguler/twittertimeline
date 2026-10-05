@@ -169,3 +169,9 @@ $_MODULE['<{twittertimeline}prestashop>megventurereviewnudge_c980491d2b999421c4a
 $_MODULE['<{twittertimeline}prestashop>megventurereviewnudge_6ecbf3c5ab7a06f08c526f02bce2b2d6'] = 'Leave a review';
 $_MODULE['<{twittertimeline}prestashop>megventurereviewnudge_8ad4303b83a62fb6ca3b025bad5bc114'] = 'No thanks';
 $_MODULE['<{twittertimeline}prestashop>megventurereviewnudge_4d170dcb0d03a0efa011c9193219bb68'] = 'Okay, we will not ask again.';
+$_MODULE['<{twittertimeline}prestashop>configure_fff9fbcd22ad1d826735fad6ffbc4b74'] = 'That\'s it: no developer account, no API keys, ever.';
+$_MODULE['<{twittertimeline}prestashop>configure_e579c7eb56d534dc6e3599e8d6de8e0d'] = 'Don\'t let Twitter/X personalize or track visitors through this widget';
+$_MODULE['<{twittertimeline}prestashop>configure_09724f5ae6e4652c08a1b19d94225baf'] = 'My feed or tweet isn\'t showing up';
+$_MODULE['<{twittertimeline}prestashop>configure_902d247a1f5899d7bf5678ee5269ad40'] = 'That\'s normal: Twitter/X caches the embedded widget for a few minutes on their end. It catches up automatically.';
+$_MODULE['<{twittertimeline}prestashop>configure_49e370598b78d596d48f82f2d110d1d2'] = 'The button relies on your theme\'s Bootstrap modal support. Most PrestaShop 1.7+ themes include this by default; a heavily customized theme may need it added back. If the popup opens but shows a message that the feed could not be loaded, that means Twitter/X itself is temporarily rate-limiting or unavailable, not an issue with this module; try again shortly, or switch to Featured tweet mode, which tends to be more reliable.';
+$_MODULE['<{twittertimeline}prestashop>configure_9f023d9ad8501ab9a5e2ca224af62ac0'] = 'The official widget only supports a Light/Dark theme plus one accent color, by design from Twitter/X. This trade-off is what keeps the feed working reliably without API keys.';
