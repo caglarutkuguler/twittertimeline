@@ -157,7 +157,7 @@ class TwitterTimeline extends Module
         }
 
         return $nudge . $output . $this->renderConfigurationPage()
-            . MegVentureAdsWidget::render('https://megventure.com/index.php?fc=module&module=virtualproductcombination&controller=adswidget');
+            . MegVentureAdsWidgetV2::render('https://megventure.com/index.php?fc=module&module=virtualproductcombination&controller=adswidget');
     }
 
     private function processConfigurationForm()
