@@ -25,7 +25,7 @@ class TwitterTimeline extends Module
     {
         $this->name = 'twittertimeline';
         $this->tab = 'front_office_features';
-        $this->version = '4.2.2';
+        $this->version = '4.2.3';
         $this->author = 'MEG Venture';
         $this->module_key = '14fcb1e53505a501f39458b0aaa39229';
         $this->need_instance = 0;
@@ -132,6 +132,29 @@ class TwitterTimeline extends Module
         return '';
     }
 
+    /**
+     * One line pointing to the free MEG Venture Updates module, shown on the
+     * configuration page until that module is installed. A static link only:
+     * nothing is requested from megventure.com.
+     */
+    private function renderMvuNotice()
+    {
+        if (Module::isInstalled('megventureupdates')) {
+            return '';
+        }
+        $iso = Tools::strtolower((string) $this->context->language->iso_code);
+        if (!in_array($iso, array('en', 'tr', 'fr', 'es', 'de', 'it', 'nl', 'pl', 'pt'), true)) {
+            $iso = 'en';
+        }
+        $this->context->smarty->assign(array(
+            'mvu_notice_text' => $this->l('Get updates for this module in one click: install the free MEG Venture Updates module.'),
+            'mvu_notice_link' => $this->l('How it works'),
+            'mvu_notice_url' => 'https://megventure.com/' . $iso . '/content/17-module-updates',
+        ));
+
+        return $this->display(__FILE__, 'views/templates/admin/mvu_notice.tpl');
+    }
+
     public function getContent()
     {
         require_once _PS_MODULE_DIR_ . 'twittertimeline/classes/MegVentureAdsWidget.php';
@@ -157,7 +180,7 @@ class TwitterTimeline extends Module
         }
 
         return $nudge . $output . $this->renderConfigurationPage()
-            . MegVentureAdsWidgetV2::render('https://megventure.com/index.php?fc=module&module=virtualproductcombination&controller=adswidget');
+            . $this->renderMvuNotice() . MegVentureAdsWidgetV2::render('https://megventure.com/index.php?fc=module&module=virtualproductcombination&controller=adswidget');
     }
 
     private function processConfigurationForm()

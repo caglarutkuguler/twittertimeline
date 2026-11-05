@@ -2,6 +2,12 @@
 
 All notable changes to **Twitter and X Feed Widget** (`twittertimeline`).
 
+## 4.2.3
+
+### Added
+
+- The configuration page links to the free MEG Venture Updates module, which installs updates for this module in one click. The line is hidden once that module is installed.
+
 ## 4.2.2
 
 ### Fixed
